@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>DorbrahFabrics | High-End Fashion Textiles</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #FEFBF6;
+            color: #1C1A19;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3, .logo, .nav-links a, .mood-btn, .story-quote, .fabric-name {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #C5A059 0%, #E5C687 50%, #C5A059 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-decoration: none;
+        }
+
+        #thread-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .hero-section {
+            position: relative;
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(135deg, #2A2622 0%, #3A322C 100%);
+            overflow: hidden;
+        }
+
+        .hero-overlay {
+            position: relative;
+            z-index: 2;
+            color: white;
+            padding: 2rem;
+        }
+
+        .hero-overlay h1 {
+            font-size: 3.8rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-overlay p {
+            font-size: 1.25rem;
+            margin-top: 1rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            color: #f0ede8;
+        }
+
+        .btn-explore {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 1rem 2.5rem;
+            background: #C5A059;
+            color: #1C1A19;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 40px;
+            transition: 0.3s;
+        }
+
+        .btn-explore:hover {
+            background: #E5C687;
+            transform: translateY(-3px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            position: relative;
+            display: inline-block;
+        }
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: #C5A059;
+        }
+
+        .fabric-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin-top: 2rem;
+        }
+
+        .fabric-card {
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .card-img-container {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 4 / 5;
+            background: #f3efe8;
+        }
+
+        .card-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            display: block;
+        }
+
+        .spin-zoom:hover img {
+            transform: scale(1.1) rotate(2deg);
+        }
+
+        .magnify-zoom:hover img {
+            transform: scale(1.2);
+        }
+
+        /* CUT TO REVEAL - FIXED */
+        .cut-reveal-container {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 4 / 5;
+            cursor: pointer;
+        }
+        .cut-img-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        .cut-front {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            transition: clip-path 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 2;
+        }
+        .cut-reveal-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            z-index: 1;
+        }
+        .cut-reveal-container:hover .cut-front {
+            clip-path: polygon(0% 0%, 35% 0%, 50% 100%, 0% 100%);
+        }
+        .cut-reveal-container:hover .cut-reveal-layer {
+            transform: scale(1.02);
+            transition: transform 0.5s ease;
+        }
+
+        .card-info {
+            padding: 1.5rem;
+        }
+        .fabric-name {
+            font-weight: 700;
+            font-size: 1.35rem;
+        }
+        .fabric-desc {
+            color: #5a5652;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .mood-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        .mood-btn {
+            background: #fff;
+            border: 1px solid #e2dbcf;
+            padding: 0.75rem 1.8rem;
+            border-radius: 60px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 1rem;
+        }
+        .mood-btn.active, .mood-btn:hover {
+            background: #C5A059;
+            color: white;
+            border-color: #C5A059;
+        }
+        .mood-results {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        .mood-item {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+        }
+        .mood-item img {
+            width: 100%;
+            aspect-ratio: 1 / 1.2;
+            object-fit: cover;
+        }
+        .mood-item p {
+            padding: 0.8rem;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        .weave-section {
+            background: #1C1A19;
+            color: #FEFBF6;
+            text-align: center;
+            padding: 5rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .weave-canvas-container {
+            position: relative;
+            z-index: 2;
+        }
+        canvas#weaveCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .weave-quote {
+            position: relative;
+            z-index: 2;
+            font-size: 2rem;
+            font-family: 'Playfair Display', serif;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .story-flex {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 3rem;
+            align-items: center;
+        }
+        .story-image {
+            flex: 1.2;
+            border-radius: 28px;
+            overflow: hidden;
+        }
+        .story-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .story-text {
+            flex: 1;
+        }
+        .story-text h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        footer {
+            background: #2A2622;
+            color: #DDD8D0;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 2rem;
+            background: rgba(254, 251, 246, 0.96);
+            backdrop-filter: blur(8px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(197, 160, 89, 0.25);
+        }
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+        }
+        .nav-links a {
+            text-decoration: none;
+            font-weight: 500;
+            color: #1C1A19;
+            font-size: 1rem;
+            transition: color 0.2s;
+            cursor: pointer;
+        }
+        .nav-links a:hover {
+            color: #C5A059;
+        }
+
+        @media (max-width: 768px) {
+            .hero-overlay h1 { font-size: 2.2rem; }
+            .container { padding: 2rem 1rem; }
+            .section-title { font-size: 2rem; }
+            .weave-quote { font-size: 1.4rem; }
+            .story-flex { flex-direction: column; }
+            .nav-links { gap: 1.2rem; }
+            .logo { font-size: 1.4rem; }
+        }
+
+        .scroll-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: #C5A059;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            cursor: pointer;
+            opacity: 0;
+            transition: 0.3s;
+            z-index: 99;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .scroll-top.visible {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="logo">DORBRAHFABRICS</div>
+    <div class="nav-links">
+        <a class="nav-jump" data-target="collections">Collections</a>
+        <a class="nav-jump" data-target="stories">Stories</a>
+        <a class="nav-jump" data-target="mood-section">Mood</a>
+    </div>
+</nav>
+
+<section class="hero-section" id="home">
+    <canvas id="thread-canvas"></canvas>
+    <div class="hero-overlay">
+        <h1>Where Threads Tell Stories</h1>
+        <p>High-end fabrics designed to be worn — each textile weaves emotion, innovation, and timeless elegance.</p>
+        <a href="#collections" class="btn-explore">Explore Collections <i class="fas fa-arrow-right"></i></a>
+    </div>
+</section>
+
+<div class="container" id="collections">
+    <h2 class="section-title">Signature Fabrics</h2>
+    <div class="fabric-grid">
+        <!-- Card 1: Silk Satin - Spin + Zoom -->
+        <div class="fabric-card spin-zoom">
+            <div class="card-img-container">
+                <img src="AFKT6334.JPG" alt="Luxury silk satin fabric">
+            </div>
+            <div class="card-info">
+                <div class="fabric-name">Celestial fabric </div>
+                <div class="fabric-desc">Fluid drape — perfect for evening gowns.</div>
+            </div>
+        </div>
+
+        <!-- Card 2: Wool Cashmere - Magnify Zoom -->
+        <div class="fabric-card magnify-zoom">
+            <div class="card-img-container">
+                <img src="BUGW3445.JPG" alt="Italian wool cashmere fabric">
+            </div>
+            <div class="card-info">
+                <div class="fabric-name">Heritage Fabric</div>
+                <div class="fabric-desc">Soft, warm, tailored elegance.</div>
+            </div>
+        </div>
+
+        <!-- Card 3: CUT TO REVEAL - Fabric splits open to reveal garment on person -->
+        <div class="fabric-card">
+            <div class="cut-reveal-container">
+                <div class="cut-img-wrapper">
+                    <div class="cut-front" style="background-image: url('RKXA7281.JPG');"></div>
+                    <div class="cut-reveal-layer" style="background-image: url('pl.jpg')"></div>
+                </div>
+            </div>
+            <div class="card-info">
+                <div class="fabric-name">Mystic Jacquard</div>
+                <div class="fabric-desc">Intricate pattern — hover to reveal a stunning garment.</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- STORIES SECTION - Only main story, artisan portraits removed -->
+<div class="container" id="stories">
+    <div class="story-flex">
+        <div class="story-image">
+            <img src="DJMC8569.JPG" alt="Traditional weaving process">
+        </div>
+        <div class="story-text">
+            <h3>The Spirit Behind the Loom</h3>
+            <p style="font-size: 1.1rem; line-height: 1.5;">Every Dorbrah fabric begins as a vision — drawn from ancient weaving traditions and fused with modern innovation. Our collection was born from a journey through textile traditions and contemporary ateliers. Breathable, vibrant fabrics that move with you, telling stories of artisanship and soul.</p>
+            <p style="margin-top: 1rem; font-style: italic; color: #C5A059;">"Wearing Dorbrah is wearing a second skin of culture and elegance."</p>
+        </div>
+    </div>
+</div>
+
+<!-- MOOD MATCHER SECTION -->
+<div class="container" id="mood-section">
+    <h2 class="section-title">Mood Matcher</h2>
+    <p>What feeling do you want your next garment to evoke? Pick a mood — we'll recommend the perfect fabric for your dress, shirt or evening wear.</p>
+    <div class="mood-group">
+        <button class="mood-btn" data-mood="calm">🌸 Calm</button>
+        <button class="mood-btn" data-mood="bold">⚡ Bold</button>
+        <button class="mood-btn" data-mood="romantic">🌹 Romantic</button>
+        <button class="mood-btn" data-mood="earthy">🌿 Earthy</button>
+        <button class="mood-btn" data-mood="luxe">✨ Luxe</button>
+    </div>
+    <div class="mood-results" id="moodResults"></div>
+</div>
+
+<div class="weave-section" id="weave-trigger">
+    <canvas id="weaveCanvas"></canvas>
+    <div class="weave-canvas-container">
+        <div class="weave-quote">
+            <i class="fas fa-feather-alt" style="color:#C5A059;"></i> Every thread crosses as you scroll — a dance of warp and weft.
+        </div>
+        <p style="margin-top: 2rem; position: relative; z-index: 2;">From fiber to fashion, our fabrics breathe life into silhouettes.</p>
+    </div>
+</div>
+
+<div class="container">
+    <h2 class="section-title">Explore The Edit</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap: 1.5rem; margin-top: 2rem;">
+        <div><img src="pl.jpg" style="width:100%; border-radius: 20px; aspect-ratio: 5/6; object-fit: cover;" alt="Elegant silk dress"></div>
+        <div><img src="luxeM.JPG" style="width:100%; border-radius: 20px; aspect-ratio: 5/6; object-fit: cover;" alt="Luxury velvet coat"></div>
+        <div><img src="pla.jpg" style="width:100%; border-radius: 20px; aspect-ratio: 5/6; object-fit: cover;" alt="Fashion garment"></div>
+    </div>
+</div>
+
+<footer>
+    <div class="logo" style="margin-bottom: 1rem;">DORBRAHFABRICS</div>
+    <p>© 2026 — Where fabric becomes second skin</p>
+    <div style="margin-top: 1rem; letter-spacing: 2px;">
+        <i class="fab fa-instagram"></i>  <i class="fab fa-pinterest"></i>  <i class="fab fa-behance"></i>
+    </div>
+</footer>
+
+<div class="scroll-top" id="scrollTopBtn">
+    <i class="fas fa-chevron-up"></i>
+</div>
+
+<script>
+    // Hero thread particles
+    const canvas = document.getElementById('thread-canvas');
+    if(canvas) {
+        let ctx = canvas.getContext('2d');
+        let width = window.innerWidth;
+        let height = document.querySelector('.hero-section').clientHeight;
+        let particles = [];
+
+        function resizeCanvas() {
+            width = window.innerWidth;
+            const hero = document.querySelector('.hero-section');
+            if(hero) height = hero.clientHeight;
+            canvas.width = width;
+            canvas.height = height;
+        }
+
+        class Thread {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.radius = Math.random() * 1.3 + 0.5;
+                this.speedX = (Math.random() - 0.5) * 0.25;
+                this.speedY = (Math.random() - 0.5) * 0.25 + 0.2;
+                this.color = `rgba(230, 200, 130, ${Math.random() * 0.5 + 0.2})`;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if(this.x < 0) this.x = width;
+                if(this.x > width) this.x = 0;
+                if(this.y < 0) this.y = height;
+                if(this.y > height) this.y = 0;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+            }
+        }
+
+        function initParticles(count) {
+            particles = [];
+            for(let i=0; i<count; i++) particles.push(new Thread());
+        }
+
+        function animateParticles() {
+            if(!ctx) return;
+            ctx.clearRect(0, 0, width, height);
+            particles.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(animateParticles);
+        }
+
+        function setupHeroParticles() {
+            resizeCanvas();
+            initParticles(140);
+            animateParticles();
+        }
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+            initParticles(140);
+        });
+        setupHeroParticles();
+    }
+
+    // WEAVE ANIMATION with moving lines
+    const weaveCanvas = document.getElementById('weaveCanvas');
+    if(weaveCanvas) {
+        const weaveCtx = weaveCanvas.getContext('2d');
+        let weaveWidth, weaveHeight;
+        let scrollProgress = 0;
+        let timeOffset = 0;
+        let animationId = null;
+
+        function resizeWeave() {
+            const section = document.querySelector('.weave-section');
+            if(section) {
+                weaveWidth = section.clientWidth;
+                weaveHeight = section.clientHeight;
+                weaveCanvas.width = weaveWidth;
+                weaveCanvas.height = weaveHeight;
+            }
+        }
+
+        function drawWeave(progress, time) {
+            if(!weaveCtx) return;
+            weaveCtx.clearRect(0, 0, weaveWidth, weaveHeight);
+            const intensity = Math.min(0.95, Math.max(0.15, progress * 1.2));
+            const lines = 32;
+            const stepY = weaveHeight / lines;
+            
+            for(let i = 0; i <= lines; i++) {
+                const y = i * stepY;
+                weaveCtx.beginPath();
+                for(let x = 0; x <= weaveWidth; x += 25) {
+                    const wave = Math.sin(x * 0.028 + progress * 12 + time * 0.003) * 14 * intensity 
+                                + Math.sin(i * 0.5 + time * 0.005) * 6 * intensity;
+                    if(x === 0) weaveCtx.moveTo(x, y + wave);
+                    else weaveCtx.lineTo(x, y + wave);
+                }
+                weaveCtx.strokeStyle = `rgba(197, 160, 89, ${0.25 + intensity * 0.55})`;
+                weaveCtx.lineWidth = 1.3;
+                weaveCtx.stroke();
+            }
+            
+            for(let j = 0; j < 22; j++) {
+                const x = (j / 22) * weaveWidth;
+                weaveCtx.beginPath();
+                for(let y = 0; y <= weaveHeight; y += 18) {
+                    const wiggle = Math.sin(y * 0.045 + progress * 14 + time * 0.004) * 12 * intensity;
+                    if(y === 0) weaveCtx.moveTo(x + wiggle, y);
+                    else weaveCtx.lineTo(x + wiggle, y);
+                }
+                weaveCtx.strokeStyle = `rgba(229, 198, 135, ${0.2 + intensity * 0.5})`;
+                weaveCtx.stroke();
+            }
+        }
+
+        function animateWeave() {
+            if(!weaveCanvas) return;
+            timeOffset = (timeOffset + 1) % 360;
+            drawWeave(scrollProgress, timeOffset);
+            animationId = requestAnimationFrame(animateWeave);
+        }
+
+        function onScrollWeave() {
+            const section = document.querySelector('.weave-section');
+            if(!section) return;
+            const rect = section.getBoundingClientRect();
+            const winH = window.innerHeight;
+            let visible = (winH - rect.top) / (winH + rect.height);
+            visible = Math.min(0.98, Math.max(0.08, visible));
+            scrollProgress = visible;
+            drawWeave(scrollProgress, timeOffset);
+        }
+
+        window.addEventListener('scroll', onScrollWeave);
+        window.addEventListener('resize', () => { resizeWeave(); onScrollWeave(); });
+        resizeWeave();
+        onScrollWeave();
+        animateWeave();
+    }
+
+    // MOOD MATCHER - No "Linen shirt" references
+    const moodData = {
+        calm: [
+            {name: "Aura", img: "calmM.jpg"},
+            {name: "Serenity", img: "calmW.jpg"}
+        ],
+        bold: [
+            {name: "Scarlet Twill Gown", img: "boldW.jpg"},
+            {name: "Jacquard", img: "boldM.jpg"}
+        ],
+        romantic: [
+            {name: "Blush Dress", img: "romanticM.jpg"},
+            {name: "Whisper Organza", img: "romanticW.jpg"}
+        ],
+        earthy: [
+            {name: "Raw Hemp Weave Tunic", img: "earthyM.jpg"},
+            {name: "Terracotta Wool", img: "earthyW.jpg"}
+        ],
+        luxe: [
+            {name: "Midnight cape", img: "luxeM.jpg"},
+            {name: "Golden lady", img: "luxeW.jpg"}
+        ]
+    };
+
+    function updateMoodResults(moodKey) {
+        const container = document.getElementById('moodResults');
+        if(!container) return;
+        const items = moodData[moodKey] || moodData.calm;
+        container.innerHTML = items.map(item => `
+            <div class="mood-item">
+                <img src="${item.img}" alt="${item.name}">
+                <p>${item.name}</p>
+            </div>
+        `).join('');
+    }
+
+    document.querySelectorAll('.mood-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            const mood = this.getAttribute('data-mood');
+            updateMoodResults(mood);
+        });
+    });
+    updateMoodResults('calm');
+
+    // Navigation jumps
+    document.querySelectorAll('.nav-jump').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('data-target');
+            const targetElement = document.getElementById(targetId);
+            if(targetElement) {
+                targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+
+    // Scroll to top
+    const scrollBtn = document.getElementById('scrollTopBtn');
+    window.addEventListener('scroll', () => {
+        if(window.scrollY > 400) scrollBtn.classList.add('visible');
+        else scrollBtn.classList.remove('visible');
+    });
+    scrollBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+</script>
+</body>
+</html>

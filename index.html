@@ -3,553 +3,838 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>DorbrahFabrics | High-End Fashion Textiles</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- SEO Optimization -->
+    <title>DorbrahFabrics | High-End Fashion Textiles & Luxe Fabrics</title>
+    <meta name="description" content="Discover DorbrahFabrics: high-end fashion textiles where threads tell stories. Explore signature fabrics, mood matcher, and artisan collections.">
+    <meta name="keywords" content="luxury fabrics, high-end textiles, fashion fabrics, silk satin, wool cashmere, jacquard, mood fabrics, Nigerian textiles">
+    <link rel="canonical" href="https://www.dorbrahfabrics.com/">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="DorbrahFabrics | High-End Fashion Textiles & Luxe Fabrics">
+    <meta property="og:description" content="Discover DorbrahFabrics: high-end fashion textiles where threads tell stories. Explore signature fabrics, mood matcher, and artisan collections.">
+    <meta property="og:image" content="https://www.dorbrahfabrics.com/DJMC8569.JPG">
+    <meta property="og:url" content="https://www.dorbrahfabrics.com/">
+    <meta property="og:type" content="website">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="DorbrahFabrics | High-End Fashion Textiles & Luxe Fabrics">
+    <meta name="twitter:description" content="Discover DorbrahFabrics: high-end fashion textiles where threads tell stories.">
+    <meta name="twitter:image" content="https://www.dorbrahfabrics.com/DJMC8569.JPG">
+
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "DorbrahFabrics",
+      "url": "https://www.dorbrahfabrics.com/",
+      "description": "High-end fashion textiles where threads tell stories.",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+2348054217435",
+        "contactType": "Customer Service"
+      }
+    }
+    </script>
+    
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        /* CSS Variables */
+        :root {
+            --cream: #FEFBF6;
+            --charcoal: #1C1A19;
+            --gold: #C5A059;
+            --gold-light: #E5C687;
+            --gray-text: #66635e;
+            --bezier: cubic-bezier(0.19, 1, 0.22, 1); /* Ultra smooth easing */
         }
 
+        /* Resets & Globals */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Inter', sans-serif;
-            background: #FEFBF6;
-            color: #1C1A19;
+            background: var(--cream);
+            color: var(--charcoal);
             overflow-x: hidden;
-            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            line-height: 1.6;
         }
-
-        h1, h2, h3, .logo, .nav-links a, .mood-btn, .story-quote, .fabric-name {
+        h1, h2, h3, h4, .serif, .logo, .fabric-name, .story-quote {
             font-family: 'Playfair Display', serif;
         }
+        img { display: block; max-width: 100%; height: auto; }
+        
+        /* Smooth Scroll HTML behavior */
+        html { scroll-behavior: smooth; }
 
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            background: linear-gradient(135deg, #C5A059 0%, #E5C687 50%, #C5A059 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-decoration: none;
+        /* Scroll Reveal Utility */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 1s var(--bezier), transform 1s var(--bezier);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        #thread-canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .hero-section {
-            position: relative;
-            min-height: 90vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            background: linear-gradient(135deg, #2A2622 0%, #3A322C 100%);
-            overflow: hidden;
-        }
-
-        .hero-overlay {
-            position: relative;
-            z-index: 2;
-            color: white;
-            padding: 2rem;
-        }
-
-        .hero-overlay h1 {
-            font-size: 3.8rem;
-            font-weight: 600;
-            letter-spacing: -0.02em;
-        }
-
-        .hero-overlay p {
-            font-size: 1.25rem;
-            margin-top: 1rem;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            color: #f0ede8;
-        }
-
-        .btn-explore {
-            display: inline-block;
-            margin-top: 2rem;
-            padding: 1rem 2.5rem;
-            background: #C5A059;
-            color: #1C1A19;
-            text-decoration: none;
-            font-weight: 600;
-            border-radius: 40px;
-            transition: 0.3s;
-        }
-
-        .btn-explore:hover {
-            background: #E5C687;
-            transform: translateY(-3px);
-            box-shadow: 0 12px 24px rgba(0,0,0,0.2);
-        }
-
+        /* Typography & Layout */
         .container {
-            max-width: 1280px;
+            max-width: 1440px;
             margin: 0 auto;
-            padding: 4rem 2rem;
+            padding: 10rem 4vw;
+            position: relative;
         }
-
-        .section-title {
-            font-size: 2.5rem;
+        .section-header {
+            margin-bottom: 5rem;
+            text-align: center;
+        }
+        .section-overline {
+            display: block;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            color: var(--gold);
+            margin-bottom: 1.5rem;
             font-weight: 600;
-            margin-bottom: 2rem;
-            position: relative;
-            display: inline-block;
         }
-        .section-title:after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 60px;
-            height: 3px;
-            background: #C5A059;
-        }
-
-        .fabric-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2.5rem;
-            margin-top: 2rem;
-        }
-
-        .fabric-card {
-            background: white;
-            border-radius: 24px;
-            overflow: hidden;
-            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05);
-            transition: all 0.4s ease;
-            cursor: pointer;
-        }
-
-        .card-img-container {
-            position: relative;
-            overflow: hidden;
-            aspect-ratio: 4 / 5;
-            background: #f3efe8;
-        }
-
-        .card-img-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-            display: block;
-        }
-
-        .spin-zoom:hover img {
-            transform: scale(1.1) rotate(2deg);
-        }
-
-        .magnify-zoom:hover img {
-            transform: scale(1.2);
-        }
-
-        /* CUT TO REVEAL - FIXED */
-        .cut-reveal-container {
-            position: relative;
-            overflow: hidden;
-            aspect-ratio: 4 / 5;
-            cursor: pointer;
-        }
-        .cut-img-wrapper {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-        }
-        .cut-front {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-size: cover;
-            background-position: center;
-            transition: clip-path 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 2;
-        }
-        .cut-reveal-layer {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-size: cover;
-            background-position: center;
-            z-index: 1;
-        }
-        .cut-reveal-container:hover .cut-front {
-            clip-path: polygon(0% 0%, 35% 0%, 50% 100%, 0% 100%);
-        }
-        .cut-reveal-container:hover .cut-reveal-layer {
-            transform: scale(1.02);
-            transition: transform 0.5s ease;
-        }
-
-        .card-info {
-            padding: 1.5rem;
-        }
-        .fabric-name {
-            font-weight: 700;
-            font-size: 1.35rem;
-        }
-        .fabric-desc {
-            color: #5a5652;
-            margin-top: 0.5rem;
-            font-size: 0.9rem;
-        }
-
-        .mood-group {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            margin: 2rem 0;
-        }
-        .mood-btn {
-            background: #fff;
-            border: 1px solid #e2dbcf;
-            padding: 0.75rem 1.8rem;
-            border-radius: 60px;
+        .section-title {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
             font-weight: 500;
-            cursor: pointer;
-            transition: 0.2s;
-            font-size: 1rem;
-        }
-        .mood-btn.active, .mood-btn:hover {
-            background: #C5A059;
-            color: white;
-            border-color: #C5A059;
-        }
-        .mood-results {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-        .mood-item {
-            background: white;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 6px 12px rgba(0,0,0,0.05);
-            transition: transform 0.2s;
-        }
-        .mood-item img {
-            width: 100%;
-            aspect-ratio: 1 / 1.2;
-            object-fit: cover;
-        }
-        .mood-item p {
-            padding: 0.8rem;
-            font-weight: 500;
-            text-align: center;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            color: var(--charcoal);
         }
 
-        .weave-section {
-            background: #1C1A19;
-            color: #FEFBF6;
-            text-align: center;
-            padding: 5rem 2rem;
-            position: relative;
-            overflow: hidden;
-        }
-        .weave-canvas-container {
-            position: relative;
-            z-index: 2;
-        }
-        canvas#weaveCanvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-        }
-        .weave-quote {
-            position: relative;
-            z-index: 2;
-            font-size: 2rem;
-            font-family: 'Playfair Display', serif;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .story-flex {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 3rem;
-            align-items: center;
-        }
-        .story-image {
-            flex: 1.2;
-            border-radius: 28px;
-            overflow: hidden;
-        }
-        .story-image img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-        .story-text {
-            flex: 1;
-        }
-        .story-text h3 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
-
-        footer {
-            background: #2A2622;
-            color: #DDD8D0;
-            padding: 3rem 2rem;
-            text-align: center;
-        }
-
+        /* Navigation */
         nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1.2rem 2rem;
-            background: rgba(254, 251, 246, 0.96);
-            backdrop-filter: blur(8px);
-            position: sticky;
+            padding: 1.5rem 4vw;
+            background: rgba(254, 251, 246, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            position: fixed;
+            width: 100%;
             top: 0;
-            z-index: 100;
-            border-bottom: 1px solid rgba(197, 160, 89, 0.25);
+            z-index: 1000;
+            transition: all 0.5s var(--bezier);
         }
-        .nav-links {
-            display: flex;
-            gap: 2.5rem;
+        nav.scrolled {
+            padding: 1rem 4vw;
+            background: rgba(254, 251, 246, 0.95);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            border-bottom: 1px solid rgba(197, 160, 89, 0.1);
         }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            color: var(--charcoal);
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+        .nav-links { display: flex; gap: 3rem; }
         .nav-links a {
             text-decoration: none;
+            font-weight: 400;
+            color: var(--charcoal);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            transition: color 0.4s ease;
+            position: relative;
+        }
+        .nav-links a::after {
+            content: ''; position: absolute; bottom: -4px; left: 0; width: 0%; height: 1px;
+            background: var(--gold); transition: width 0.4s var(--bezier);
+        }
+        .nav-links a:hover::after { width: 100%; }
+        .nav-links a:hover { color: var(--gold); }
+
+        /* Hero Section */
+        .hero-section {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+            background: var(--charcoal);
+        }
+        .hero-bg {
+            position: absolute;
+            top: -10%; left: -10%; width: 120%; height: 120%;
+            background: radial-gradient(circle at 50% 50%, #302C29 0%, #1A1817 100%);
+            z-index: 0;
+            will-change: transform;
+        }
+        #thread-canvas {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 1;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            color: var(--cream);
+            padding: 2rem;
+            max-width: 900px;
+        }
+        .hero-content h1 {
+            font-size: clamp(3.5rem, 8vw, 7rem);
+            font-weight: 400;
+            letter-spacing: -0.03em;
+            line-height: 1.05;
+            margin-bottom: 2rem;
+        }
+        .hero-content h1 i {
+            color: var(--gold);
+            font-style: italic;
             font-weight: 500;
-            color: #1C1A19;
-            font-size: 1rem;
-            transition: color 0.2s;
-            cursor: pointer;
         }
-        .nav-links a:hover {
-            color: #C5A059;
+        .hero-content p {
+            font-size: clamp(1.1rem, 2vw, 1.4rem);
+            color: rgba(254, 251, 246, 0.8);
+            max-width: 600px;
+            margin: 0 auto 4rem auto;
+            font-weight: 300;
         }
-
-        @media (max-width: 768px) {
-            .hero-overlay h1 { font-size: 2.2rem; }
-            .container { padding: 2rem 1rem; }
-            .section-title { font-size: 2rem; }
-            .weave-quote { font-size: 1.4rem; }
-            .story-flex { flex-direction: column; }
-            .nav-links { gap: 1.2rem; }
-            .logo { font-size: 1.4rem; }
-        }
-
-        .scroll-top {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            background: #C5A059;
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            display: flex;
+        .btn-primary {
+            display: inline-flex;
             align-items: center;
-            justify-content: center;
-            color: white;
-            cursor: pointer;
-            opacity: 0;
-            transition: 0.3s;
-            z-index: 99;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        }
-        .scroll-top.visible {
-            opacity: 1;
-        }
-
-        /* WHATSAPP BUTTON STYLES */
-        .whatsapp-float {
-            position: fixed;
-            bottom: 2rem;
-            left: 2rem;
-            background-color: #25D366;
-            color: white;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            transition: all 0.3s ease;
-            z-index: 100;
+            gap: 1rem;
+            padding: 1.2rem 3rem;
+            background: var(--gold);
+            color: var(--charcoal);
             text-decoration: none;
-            border: none;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-size: 0.85rem;
+            border-radius: 100px;
+            transition: all 0.6s var(--bezier);
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-primary::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--gold-light); transform: scaleX(0); transform-origin: right;
+            transition: transform 0.6s var(--bezier); z-index: -1;
+        }
+        .btn-primary:hover::before { transform: scaleX(1); transform-origin: left; }
+        .btn-primary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(197, 160, 89, 0.2);
         }
 
-        .whatsapp-float:hover {
+        /* Collections - Signature Fabrics */
+        .fabric-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 4rem;
+        }
+        .fabric-card {
+            background: #fff;
+            border-radius: 32px;
+            padding: 1.5rem;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.03);
+            transition: all 0.8s var(--bezier);
+            cursor: pointer;
+        }
+        .fabric-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.08);
+        }
+        .card-img-wrapper {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 3.5 / 5;
+            border-radius: 20px;
+            background: #f3efe8;
+        }
+        .card-img-wrapper img {
+            width: 100%; height: 100%; object-fit: cover;
+            transition: transform 1.2s var(--bezier);
+        }
+        .fabric-card:hover .card-img-wrapper img {
+            transform: scale(1.08);
+        }
+        
+        /* Cut to Reveal - Diagonal Split */
+        .cut-reveal-container {
+            position: relative;
+            width: 100%; height: 100%;
+        }
+        .cut-layer-back, .cut-layer-front {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-size: cover; background-position: center;
+        }
+        .cut-layer-back {
+            z-index: 1;
             transform: scale(1.1);
-            background-color: #128C7E;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+            transition: transform 1.2s var(--bezier);
+        }
+        .cut-layer-front {
+            z-index: 2;
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+            transition: clip-path 1.2s var(--bezier);
+        }
+        .fabric-card:hover .cut-layer-front {
+            /* Flawless diagonal cut pulling to the top-left */
+            clip-path: polygon(0 0, 0 0, 100% 100%, 0 100%);
+        }
+        .fabric-card:hover .cut-layer-back {
+            transform: scale(1);
         }
 
+        .card-info { padding: 2.5rem 1rem 1rem; text-align: center; }
+        .fabric-name { font-size: 1.8rem; margin-bottom: 0.5rem; color: var(--charcoal); }
+        .fabric-desc { color: var(--gray-text); font-size: 1.05rem; }
+
+        /* The Material Board / Atelier Swatches */
+        .material-board-section {
+            background-color: #F9F6F0;
+            position: relative;
+            overflow: hidden;
+        }
+        .board-texture {
+            position: absolute; top: -20%; left: 0; width: 100%; height: 140%;
+            background-image: radial-gradient(var(--gold) 1px, transparent 1px);
+            background-size: 40px 40px;
+            opacity: 0.1;
+            z-index: 0;
+            will-change: transform;
+        }
+        .masonry-board {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            padding: 4rem 0;
+            align-items: start;
+        }
+        .masonry-board > div:nth-child(even) { margin-top: 5rem; }
+        
+        .swatch-item {
+            position: relative;
+            background: #fff;
+            padding: 10px 10px 45px 10px;
+            border-radius: 2px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.06);
+            transform: rotate(var(--r));
+            transition: all 0.8s var(--bezier);
+            cursor: pointer;
+        }
+        /* The tape */
+        .swatch-item::after {
+            content: '';
+            position: absolute;
+            top: -12px; left: 50%;
+            width: 45px; height: 20px;
+            background: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(0,0,0,0.03);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            transform: translateX(-50%) rotate(calc(var(--r) * -1.5));
+            z-index: 3;
+        }
+        .swatch-item img {
+            width: 100%; aspect-ratio: 1; object-fit: cover;
+            display: block; position: relative; z-index: 1;
+        }
+        .swatch-label {
+            position: absolute; bottom: 12px; left: 0; width: 100%;
+            text-align: center; font-size: 0.9rem; font-style: italic;
+            color: var(--charcoal); font-family: 'Playfair Display', serif;
+        }
+        .swatch-item:hover {
+            transform: rotate(0deg) scale(1.15) translateY(-10px);
+            box-shadow: 0 40px 70px rgba(0,0,0,0.15);
+            z-index: 20;
+        }
+
+        /* Stories Section */
+        .story-flex {
+            display: flex; flex-wrap: wrap; gap: 6vw; align-items: center;
+        }
+        .story-img-col {
+            flex: 1.2; position: relative;
+            border-radius: 32px; overflow: hidden;
+            aspect-ratio: 4/5;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.1);
+        }
+        .story-img-col img {
+            position: absolute; top: -15%; left: 0; width: 100%; height: 130%;
+            object-fit: cover; will-change: transform;
+        }
+        .story-text-col { flex: 1; min-width: 320px; }
+        .story-text-col p {
+            font-size: 1.2rem; color: var(--gray-text); margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+        .story-quote {
+            font-size: 1.8rem; color: var(--gold); line-height: 1.4;
+            margin-top: 3rem; position: relative; padding-left: 2rem;
+        }
+        .story-quote::before {
+            content: ''; position: absolute; left: 0; top: 10px; bottom: 10px;
+            width: 2px; background: var(--gold);
+        }
+
+        /* Mood Matcher */
+        .mood-section { text-align: center; }
+        .mood-nav {
+            display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center;
+            margin: 4rem 0;
+        }
+        .mood-btn {
+            background: transparent;
+            border: 1px solid rgba(28, 26, 25, 0.2);
+            padding: 1rem 3rem;
+            border-radius: 100px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500; font-size: 1rem;
+            color: var(--charcoal); cursor: pointer;
+            transition: all 0.5s var(--bezier);
+        }
+        .mood-btn.active, .mood-btn:hover {
+            background: var(--charcoal);
+            color: var(--cream);
+            border-color: var(--charcoal);
+            transform: translateY(-4px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        .mood-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            text-align: left;
+            opacity: 1; transition: opacity 0.4s ease;
+        }
+        .mood-item {
+            border-radius: 24px; overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.04);
+            transition: transform 0.8s var(--bezier);
+            background: #fff;
+        }
+        .mood-item:hover { transform: translateY(-10px); }
+        .mood-item img {
+            width: 100%; aspect-ratio: 4/5; object-fit: cover;
+        }
+        .mood-item p {
+            padding: 2rem; font-family: 'Playfair Display', serif;
+            font-size: 1.4rem; text-align: center; color: var(--charcoal);
+        }
+
+        /* Weave Section (Canvas) */
+        .weave-section {
+            position: relative;
+            background: var(--charcoal); color: var(--cream);
+            padding: 15rem 4vw; text-align: center; overflow: hidden;
+        }
+        #weaveCanvas {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 1;
+        }
+        .weave-content { position: relative; z-index: 2; max-width: 1000px; margin: 0 auto; }
+        .weave-content i { font-size: 2.5rem; color: var(--gold); margin-bottom: 2rem; display: block; }
+        .weave-quote {
+            font-size: clamp(2.5rem, 6vw, 4.5rem); line-height: 1.2;
+            margin-bottom: 2rem;
+        }
+        .weave-sub {
+            font-size: 1.1rem; text-transform: uppercase; letter-spacing: 0.2em;
+            color: rgba(254,251,246,0.6);
+        }
+
+        /* Explore The Edit */
+        .edit-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem; margin-top: 4rem;
+        }
+        .edit-card {
+            border-radius: 32px; overflow: hidden; aspect-ratio: 4/5;
+            position: relative;
+        }
+        .edit-card img {
+            width: 100%; height: 100%; object-fit: cover;
+            transition: transform 1.5s var(--bezier);
+        }
+        .edit-card:hover img { transform: scale(1.1); }
+
+        /* Footer */
+        footer {
+            background: #11100F; color: #a19d96;
+            padding: 8rem 4vw 4rem; text-align: center;
+        }
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem; color: #fff; text-decoration: none;
+            display: inline-block; margin-bottom: 2rem;
+        }
+        .socials { margin-top: 3rem; display: flex; justify-content: center; gap: 3rem; }
+        .socials i { font-size: 1.5rem; cursor: pointer; transition: color 0.4s ease; }
+        .socials i:hover { color: var(--gold); }
+
+        /* Floating Actions */
+        .fab {
+            position: fixed; display: flex; align-items: center; justify-content: center;
+            border-radius: 50%; color: white; cursor: pointer; z-index: 100;
+            transition: all 0.5s var(--bezier);
+        }
+        .whatsapp-btn {
+            bottom: 2.5rem; left: 2.5rem; width: 70px; height: 70px;
+            background: #25D366; font-size: 2.2rem; text-decoration: none;
+            box-shadow: 0 15px 35px rgba(37, 211, 102, 0.3);
+        }
+        .whatsapp-btn:hover { transform: scale(1.1) rotate(5deg); background: #1ebd5a; }
+        
+        .scroll-top-btn {
+            bottom: 2.5rem; right: 2.5rem; width: 60px; height: 60px;
+            background: var(--charcoal); font-size: 1.2rem;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            opacity: 0; visibility: hidden; transform: translateY(20px);
+        }
+        .scroll-top-btn.visible { opacity: 1; visibility: visible; transform: translateY(0); }
+        .scroll-top-btn:hover { background: var(--gold); transform: translateY(-5px); }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .masonry-board { grid-template-columns: repeat(2, 1fr); gap: 3rem; }
+            .masonry-board > div:nth-child(even) { margin-top: 0; }
+            .masonry-board > div:nth-child(2n) { margin-top: 4rem; }
+            .container { padding: 8rem 4vw; }
+        }
         @media (max-width: 768px) {
-            .whatsapp-float {
-                width: 50px;
-                height: 50px;
-                font-size: 1.6rem;
-                bottom: 1.5rem;
-                left: 1.5rem;
-            }
+            nav { padding: 1.2rem 4vw; }
+            .nav-links { display: none; }
+            .story-flex { flex-direction: column; }
+            .story-img-col { width: 100%; }
+            .whatsapp-btn { width: 60px; height: 60px; font-size: 1.8rem; bottom: 1.5rem; left: 1.5rem; }
+            .scroll-top-btn { width: 50px; height: 50px; bottom: 1.5rem; right: 1.5rem; }
+            .mood-btn { padding: 0.8rem 2rem; width: 100%; }
         }
     </style>
 </head>
 <body>
 
-<nav>
-    <div class="logo">DORBRAHFABRICS</div>
+<!-- Navigation -->
+<nav id="navbar">
+    <a href="#home" class="logo">DorbrahFabrics</a>
     <div class="nav-links">
-        <a class="nav-jump" data-target="collections">Collections</a>
-        <a class="nav-jump" data-target="stories">Stories</a>
-        <a class="nav-jump" data-target="mood-section">Mood</a>
+        <a href="#collections">Collections</a>
+        <a href="#atelier">Atelier</a>
+        <a href="#stories">Stories</a>
+        <a href="#mood">Mood</a>
     </div>
 </nav>
 
+<!-- Hero Section -->
 <section class="hero-section" id="home">
+    <div class="hero-bg parallax" data-speed="0.3"></div>
     <canvas id="thread-canvas"></canvas>
-    <div class="hero-overlay">
-        <h1>Where Threads Tell Stories</h1>
+    <div class="hero-content reveal">
+        <h1>Where <i>Threads</i> Tell Stories</h1>
         <p>High-end fabrics designed to be worn — each textile weaves emotion, innovation, and timeless elegance.</p>
-        <a href="#collections" class="btn-explore">Explore Collections <i class="fas fa-arrow-right"></i></a>
+        <a href="#collections" class="btn-primary">Explore Collections <i class="fas fa-arrow-right"></i></a>
     </div>
 </section>
 
-<div class="container" id="collections">
-    <h2 class="section-title">Signature Fabrics</h2>
+<!-- Signature Collections -->
+<section class="container" id="collections">
+    <div class="section-header reveal">
+        <span class="section-overline">01 — The Mastery</span>
+        <h2 class="section-title">Signature Fabrics</h2>
+    </div>
     <div class="fabric-grid">
-        <!-- Card 1: Silk Satin - Spin + Zoom -->
-        <div class="fabric-card spin-zoom">
-            <div class="card-img-container">
-                <img src="AFKT6334.JPG" alt="Luxury silk satin fabric">
+        <!-- Silk Satin -->
+        <div class="fabric-card reveal">
+            <div class="card-img-wrapper">
+                <img src="AFKT6334.JPG" alt="Celestial fabric">
             </div>
             <div class="card-info">
-                <div class="fabric-name">Celestial fabric </div>
-                <div class="fabric-desc">Fluid drape — perfect for evening gowns.</div>
+                <h3 class="fabric-name">Celestial fabric </h3>
+                <p class="fabric-desc">Fluid drape — perfect for evening gowns.</p>
             </div>
         </div>
-
-        <!-- Card 2: Wool Cashmere - Magnify Zoom -->
-        <div class="fabric-card magnify-zoom">
-            <div class="card-img-container">
-                <img src="BUGW3445.JPG" alt="Italian wool cashmere fabric">
+        <!-- Wool Cashmere -->
+        <div class="fabric-card reveal" style="transition-delay: 0.1s;">
+            <div class="card-img-wrapper">
+                <img src="BUGW3445.JPG" alt="Heritage Fabric">
             </div>
             <div class="card-info">
-                <div class="fabric-name">Heritage Fabric</div>
-                <div class="fabric-desc">Soft, warm, tailored elegance.</div>
+                <h3 class="fabric-name">Heritage Fabric</h3>
+                <p class="fabric-desc">Soft, warm, tailored elegance.</p>
             </div>
         </div>
-
-        <!-- Card 3: CUT TO REVEAL - Fabric splits open to reveal garment on person -->
-        <div class="fabric-card">
-            <div class="cut-reveal-container">
-                <div class="cut-img-wrapper">
-                    <div class="cut-front" style="background-image: url('RKXA7281.JPG');"></div>
-                    <div class="cut-reveal-layer" style="background-image: url('pl.jpg')"></div>
-                </div>
+        <!-- Mystic Jacquard (Cut-to-Reveal) -->
+        <div class="fabric-card reveal" style="transition-delay: 0.2s;">
+            <div class="card-img-wrapper cut-reveal-container">
+                <div class="cut-layer-back" style="background-image: url('pl.jpg')"></div>
+                <div class="cut-layer-front" style="background-image: url('RKXA7281.JPG')"></div>
             </div>
             <div class="card-info">
-                <div class="fabric-name">Mystic Jacquard</div>
-                <div class="fabric-desc">Intricate pattern — hover to reveal a stunning garment.</div>
+                <h3 class="fabric-name">Mystic Jacquard</h3>
+                <p class="fabric-desc">Intricate pattern — hover to reveal a stunning garment.</p>
             </div>
         </div>
     </div>
-</div>
+</section>
 
-<!-- STORIES SECTION - Only main story, artisan portraits removed -->
-<div class="container" id="stories">
+<!-- The Material Board -->
+<section class="material-board-section" id="atelier">
+    <div class="board-texture parallax" data-speed="0.15"></div>
+    <div class="container" style="padding-top: 6rem; padding-bottom: 6rem;">
+        <div class="section-header reveal">
+            <span class="section-overline">02 — The Atelier</span>
+            <h2 class="section-title">The Material Board</h2>
+        </div>
+        
+        <div class="masonry-board">
+            <div class="swatch-item reveal" style="--r: -3deg;">
+                <img src="fabric11.jpg" alt="Raw Hemp Weave">
+                <div class="swatch-label">Raw Hemp Twill</div>
+            </div>
+            <div class="swatch-item reveal" style="--r: 2deg; transition-delay: 0.1s;">
+                <img src="f4.jpg" alt="Terracotta Wool">
+                <div class="swatch-label">Terracotta Wool</div>
+            </div>
+            <div class="swatch-item reveal" style="--r: -1.5deg; transition-delay: 0.2s;">
+                <img src="fa.jpg" alt="Blush Satin">
+                <div class="swatch-label">Blush Satin</div>
+            </div>
+            <div class="swatch-item reveal" style="--r: 4deg; transition-delay: 0.3s;">
+                <img src="f1.jpg" alt="Whisper Organza">
+                <div class="swatch-label">Whisper Organza</div>
+            </div>
+            <div class="swatch-item reveal" style="--r: -2.5deg;">
+                <img src="fa2.jpg" alt="Midnight Velvet">
+                <div class="swatch-label">Midnight Velvet</div>
+            </div>
+            <div class="swatch-item reveal" style="--r: 1.5deg; transition-delay: 0.1s;">
+                <img src="try3.jpg" alt="Gold Brocade">
+                <div class="swatch-label">Gold Brocade</div>
+            </div>
+            <div class="swatch-item reveal" style="--r: -4deg; transition-delay: 0.2s;">
+                <img src="check1.jpg" alt="Serenity Check">
+                <div class="swatch-label">Serenity Check</div>
+            </div>
+            <div class="swatch-item reveal" style="--r: 2.5deg; transition-delay: 0.3s;">
+                <img src="fabric14.jpg" alt="Jacquard Silk">
+                <div class="swatch-label">Jacquard Silk</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Stories Section -->
+<section class="container" id="stories">
     <div class="story-flex">
-        <div class="story-image">
-            <img src="DJMC8569.JPG" alt="Traditional weaving process">
+        <div class="story-img-col reveal">
+            <img src="DJMC8569.JPG" alt="Traditional weaving process" class="parallax" data-speed="0.2">
         </div>
-        <div class="story-text">
-            <h3>The Spirit Behind the Loom</h3>
-            <p style="font-size: 1.1rem; line-height: 1.5;">Every Dorbrah fabric begins as a vision — drawn from ancient weaving traditions and fused with modern innovation. Our collection was born from a journey through textile traditions and contemporary ateliers. Breathable, vibrant fabrics that move with you, telling stories of artisanship and soul.</p>
-            <p style="margin-top: 1rem; font-style: italic; color: #C5A059;">"Wearing Dorbrah is wearing a second skin of culture and elegance."</p>
+        <div class="story-text-col reveal">
+            <span class="section-overline">03 — Heritage</span>
+            <h2 class="section-title" style="margin-bottom: 2rem;">The Spirit Behind the Loom</h2>
+            <p>Every Dorbrah fabric begins as a vision — drawn from ancient weaving traditions and fused with modern innovation. Our collection was born from a journey through textile traditions and contemporary ateliers. Breathable, vibrant fabrics that move with you, telling stories of artisanship and soul.</p>
+            <p class="story-quote">"Wearing Dorbrah is wearing a second skin of culture and elegance."</p>
         </div>
     </div>
-</div>
+</section>
 
-<!-- MOOD MATCHER SECTION -->
-<div class="container" id="mood-section">
-    <h2 class="section-title">Mood Matcher</h2>
-    <p>What feeling do you want your next garment to evoke? Pick a mood — we'll recommend the perfect fabric for your dress, shirt or evening wear.</p>
-    <div class="mood-group">
-        <button class="mood-btn" data-mood="calm">🌸 Calm</button>
-        <button class="mood-btn" data-mood="bold">⚡ Bold</button>
-        <button class="mood-btn" data-mood="romantic">🌹 Romantic</button>
-        <button class="mood-btn" data-mood="earthy">🌿 Earthy</button>
-        <button class="mood-btn" data-mood="luxe">✨ Luxe</button>
+<!-- Mood Matcher -->
+<section class="container mood-section" id="mood">
+    <div class="reveal">
+        <span class="section-overline">04 — Curated</span>
+        <h2 class="section-title">Mood Matcher</h2>
+        <p style="color: var(--gray-text); font-size: 1.15rem; max-width: 600px; margin: 1.5rem auto 0;">
+            What feeling do you want your next garment to evoke? Pick a mood — we'll recommend the perfect fabric for your dress, shirt or evening wear.
+        </p>
     </div>
-    <div class="mood-results" id="moodResults"></div>
-</div>
+    
+    <div class="mood-nav reveal">
+        <button class="mood-btn active" data-mood="calm">Calm</button>
+        <button class="mood-btn" data-mood="bold">Bold</button>
+        <button class="mood-btn" data-mood="romantic">Romantic</button>
+        <button class="mood-btn" data-mood="earthy">Earthy</button>
+        <button class="mood-btn" data-mood="luxe">Luxe</button>
+    </div>
+    
+    <div class="mood-gallery" id="moodResults"></div>
+</section>
 
-<div class="weave-section" id="weave-trigger">
+<!-- Weave Canvas Section -->
+<section class="weave-section">
     <canvas id="weaveCanvas"></canvas>
-    <div class="weave-canvas-container">
-        <div class="weave-quote">
-            <i class="fas fa-feather-alt" style="color:#C5A059;"></i> Every thread crosses as you scroll — a dance of warp and weft.
-        </div>
-        <p style="margin-top: 2rem; position: relative; z-index: 2;">From fiber to fashion, our fabrics breathe life into silhouettes.</p>
+    <div class="weave-content reveal">
+        <i class="fas fa-feather-alt"></i>
+        <h2 class="weave-quote serif">Every thread crosses as you scroll — a dance of warp and weft.</h2>
+        <p class="weave-sub">From fiber to fashion, our fabrics breathe life into silhouettes.</p>
     </div>
-</div>
+</section>
 
-<div class="container">
-    <h2 class="section-title">Explore The Edit</h2>
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap: 1.5rem; margin-top: 2rem;">
-        <div><img src="pl.jpg" style="width:100%; border-radius: 20px; aspect-ratio: 5/6; object-fit: cover;" alt="Elegant silk dress"></div>
-        <div><img src="luxeM.JPG" style="width:100%; border-radius: 20px; aspect-ratio: 5/6; object-fit: cover;" alt="Luxury velvet coat"></div>
-        <div><img src="pla.jpg" style="width:100%; border-radius: 20px; aspect-ratio: 5/6; object-fit: cover;" alt="Fashion garment"></div>
+<!-- Explore The Edit -->
+<section class="container">
+    <div class="section-header reveal">
+        <span class="section-overline">05 — Inspiration</span>
+        <h2 class="section-title">Explore The Edit</h2>
     </div>
-</div>
+    <div class="edit-grid">
+        <div class="edit-card reveal"><img src="pl.jpg" alt="Elegant silk dress"></div>
+        <div class="edit-card reveal" style="transition-delay: 0.15s;"><img src="luxeM.JPG" alt="Luxury velvet coat"></div>
+        <div class="edit-card reveal" style="transition-delay: 0.3s;"><img src="pla.jpg" alt="Fashion garment"></div>
+    </div>
+</section>
 
+<!-- Footer -->
 <footer>
-    <div class="logo" style="margin-bottom: 1rem;">DORBRAHFABRICS</div>
+    <a href="#home" class="footer-logo">DorbrahFabrics</a>
     <p>© 2026 — Where fabric becomes second skin</p>
-    <div style="margin-top: 1rem; letter-spacing: 2px;">
-        <i class="fab fa-instagram"></i>  <i class="fab fa-pinterest"></i>  <i class="fab fa-behance"></i>
+    <div class="socials">
+        <i class="fab fa-instagram"></i>
+        <i class="fab fa-pinterest-p"></i>
+        <i class="fab fa-behance"></i>
     </div>
 </footer>
 
-<!-- WHATSAPP FLOATING BUTTON -->
+<!-- Floating Elements -->
 <a href="https://wa.me/2348054217435?text=Hello%20DorbrahFabrics%2C%20I%27m%20interested%20in%20your%20fabrics" 
-   class="whatsapp-float" 
-   target="_blank" 
-   rel="noopener noreferrer"
-   aria-label="Chat with us on WhatsApp">
+   class="fab whatsapp-btn" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
     <i class="fab fa-whatsapp"></i>
 </a>
 
-<div class="scroll-top" id="scrollTopBtn">
-    <i class="fas fa-chevron-up"></i>
+<div class="fab scroll-top-btn" id="scrollTopBtn" aria-label="Scroll Top">
+    <i class="fas fa-arrow-up"></i>
 </div>
 
 <script>
-    // Hero thread particles
+    /* =========================================
+       1. SCROLL REVEAL OBSERVER
+       ========================================= */
+    const revealElements = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+                // Optional: stop observing once revealed
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { rootMargin: '0px 0px -100px 0px', threshold: 0.1 });
+    revealElements.forEach(el => observer.observe(el));
+
+    /* =========================================
+       2. NAVIGATION & FAB VISIBILITY
+       ========================================= */
+    const navbar = document.getElementById('navbar');
+    const scrollTopBtn = document.getElementById('scrollTopBtn');
+    
+    window.addEventListener('scroll', () => {
+        const y = window.scrollY;
+        // Nav blur
+        if (y > 50) navbar.classList.add('scrolled');
+        else navbar.classList.remove('scrolled');
+        // FAB
+        if (y > 600) scrollTopBtn.classList.add('visible');
+        else scrollTopBtn.classList.remove('visible');
+    }, { passive: true });
+
+    scrollTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    /* =========================================
+       3. SMOOTH PARALLAX ENGINE
+       ========================================= */
+    let rafId;
+    function executeParallax() {
+        if (window.innerWidth <= 768) return; // Disable on small mobile for performance
+        
+        document.querySelectorAll('.parallax').forEach(el => {
+            const speed = parseFloat(el.getAttribute('data-speed'));
+            const rect = el.parentElement.getBoundingClientRect();
+            // Calculate center offset of the parent container relative to viewport
+            const centerOffset = rect.top - (window.innerHeight / 2);
+            el.style.transform = `translateY(${centerOffset * speed}px)`;
+        });
+    }
+    
+    window.addEventListener('scroll', () => {
+        if(rafId) cancelAnimationFrame(rafId);
+        rafId = requestAnimationFrame(executeParallax);
+    }, { passive: true });
+    executeParallax(); // Initial call
+
+    /* =========================================
+       4. MOOD MATCHER LOGIC
+       ========================================= */
+    const moodData = {
+        calm: [
+            {name: "Aura", img: "1.jpg"},
+            {name: "Serenity", img: "check1.jpg"}
+        ],
+        bold: [
+            {name: "Scarlet Twill Gown", img: "f4.jpg"},
+            {name: "Jacquard", img: "fabric14.jpg"}
+        ],
+        romantic: [
+            {name: "Blush Dress", img: "fa.jpg"},
+            {name: "Whisper Organza", img: "f1.jpg"}
+        ],
+        earthy: [
+            {name: "Raw Hemp Weave Tunic", img: "fabric11.jpg"},
+            {name: "Terracotta Wool", img: "f4.jpg"}
+        ],
+        luxe: [
+            {name: "Midnight cape", img: "fa2.jpg"},
+            {name: "Golden lady", img: "try3.jpg"}
+        ]
+    };
+
+    function updateMoodResults(moodKey) {
+        const container = document.getElementById('moodResults');
+        if(!container) return;
+        const items = moodData[moodKey] || moodData.calm;
+        
+        container.style.opacity = '0';
+        setTimeout(() => {
+            container.innerHTML = items.map(item => `
+                <div class="mood-item">
+                    <img src="${item.img}" alt="${item.name}">
+                    <p>${item.name}</p>
+                </div>
+            `).join('');
+            container.style.opacity = '1';
+        }, 300);
+    }
+
+    document.querySelectorAll('.mood-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            updateMoodResults(this.getAttribute('data-mood'));
+        });
+    });
+    // Init
+    updateMoodResults('calm');
+
+    /* =========================================
+       5. HERO THREAD PARTICLES (Original Code)
+       ========================================= */
     const canvas = document.getElementById('thread-canvas');
     if(canvas) {
         let ctx = canvas.getContext('2d');
@@ -572,7 +857,7 @@
                 this.radius = Math.random() * 1.3 + 0.5;
                 this.speedX = (Math.random() - 0.5) * 0.25;
                 this.speedY = (Math.random() - 0.5) * 0.25 + 0.2;
-                this.color = `rgba(230, 200, 130, ${Math.random() * 0.5 + 0.2})`;
+                this.color = `rgba(197, 160, 89, ${Math.random() * 0.5 + 0.2})`; // Gold particles
             }
             update() {
                 this.x += this.speedX;
@@ -602,26 +887,21 @@
             requestAnimationFrame(animateParticles);
         }
 
-        function setupHeroParticles() {
-            resizeCanvas();
-            initParticles(140);
-            animateParticles();
-        }
-        window.addEventListener('resize', () => {
-            resizeCanvas();
-            initParticles(140);
-        });
-        setupHeroParticles();
+        window.addEventListener('resize', () => { resizeCanvas(); initParticles(140); });
+        resizeCanvas();
+        initParticles(140);
+        animateParticles();
     }
 
-    // WEAVE ANIMATION with moving lines
+    /* =========================================
+       6. WEAVE SCROLL ANIMATION (Original Code)
+       ========================================= */
     const weaveCanvas = document.getElementById('weaveCanvas');
     if(weaveCanvas) {
         const weaveCtx = weaveCanvas.getContext('2d');
         let weaveWidth, weaveHeight;
         let scrollProgress = 0;
         let timeOffset = 0;
-        let animationId = null;
 
         function resizeWeave() {
             const section = document.querySelector('.weave-section');
@@ -671,7 +951,7 @@
             if(!weaveCanvas) return;
             timeOffset = (timeOffset + 1) % 360;
             drawWeave(scrollProgress, timeOffset);
-            animationId = requestAnimationFrame(animateWeave);
+            requestAnimationFrame(animateWeave);
         }
 
         function onScrollWeave() {
@@ -682,83 +962,14 @@
             let visible = (winH - rect.top) / (winH + rect.height);
             visible = Math.min(0.98, Math.max(0.08, visible));
             scrollProgress = visible;
-            drawWeave(scrollProgress, timeOffset);
         }
 
-        window.addEventListener('scroll', onScrollWeave);
+        window.addEventListener('scroll', onScrollWeave, { passive: true });
         window.addEventListener('resize', () => { resizeWeave(); onScrollWeave(); });
         resizeWeave();
         onScrollWeave();
         animateWeave();
     }
-
-    // MOOD MATCHER - No "Linen shirt" references
-    const moodData = {
-        calm: [
-            {name: "Aura", img: "1.jpg"},
-            {name: "Serenity", img: "check1.jpg"}
-        ],
-        bold: [
-            {name: "Scarlet Twill Gown", img: "f4.jpg"},
-            {name: "Jacquard", img: "fabric14.jpg"}
-        ],
-        romantic: [
-            {name: "Blush Dress", img: "fa.jpg"},
-            {name: "Whisper Organza", img: "f1.jpg"}
-        ],
-        earthy: [
-            {name: "Raw Hemp Weave Tunic", img: "fabric11.jpg"},
-            {name: "Terracotta Wool", img: "f4.jpg"}
-        ],
-        luxe: [
-            {name: "Midnight cape", img: "fa2.jpg"},
-            {name: "Golden lady", img: "try3.jpg"}
-        ]
-    };
-
-    function updateMoodResults(moodKey) {
-        const container = document.getElementById('moodResults');
-        if(!container) return;
-        const items = moodData[moodKey] || moodData.calm;
-        container.innerHTML = items.map(item => `
-            <div class="mood-item">
-                <img src="${item.img}" alt="${item.name}">
-                <p>${item.name}</p>
-            </div>
-        `).join('');
-    }
-
-    document.querySelectorAll('.mood-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-            document.querySelectorAll('.mood-btn').forEach(b => b.classList.remove('active'));
-            this.classList.add('active');
-            const mood = this.getAttribute('data-mood');
-            updateMoodResults(mood);
-        });
-    });
-    updateMoodResults('calm');
-
-    // Navigation jumps
-    document.querySelectorAll('.nav-jump').forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('data-target');
-            const targetElement = document.getElementById(targetId);
-            if(targetElement) {
-                targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-        });
-    });
-
-    // Scroll to top
-    const scrollBtn = document.getElementById('scrollTopBtn');
-    window.addEventListener('scroll', () => {
-        if(window.scrollY > 400) scrollBtn.classList.add('visible');
-        else scrollBtn.classList.remove('visible');
-    });
-    scrollBtn.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
 </script>
 </body>
 </html>
